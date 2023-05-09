@@ -21,7 +21,7 @@ const Blog = () => {
 				<h1>{blog.title}</h1>
 
 				<div className='content'>
-					<img src='https://picsum.photos/1000' />
+					<img src={'http://localhost:3000/' + blog.img} />
 
 					<div className='text'>
 						<p>{blog.text}</p>

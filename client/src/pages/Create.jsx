@@ -5,6 +5,7 @@ import { useState } from 'react'
 const Create = () => {
 	const [title, setTitle] = useState('')
 	const [text, setText] = useState('')
+	const [img, setImg] = useState('')
 
 	const handleTitle = (e) => {
 		setTitle(e.target.value)
@@ -14,19 +15,33 @@ const Create = () => {
 		setText(e.target.value)
 	}
 
+	const handleImg = (e) => {
+		setImg(e.target.files[0])
+	}
+
 	const handlaSubmit = (e) => {
 		e.preventDefault()
 
 		if (title && text) {
+			const data = new FormData()
+
+			data.set('title', title)
+			data.set('text', text)
+			data.set('date', Date())
+			data.set('img', img)
+
+			setTitle('')
+			setText('')
+			setImg('')
+
 			fetch('http://localhost:3000/create', {
 				method: 'POST',
-				body: JSON.stringify({ title, text, date: '02 May 2023' }),
-				headers: { 'Content-type': 'application/json; charset=UTF-8' },
+				body: data,
 			})
 				.then((response) => response.json())
 				.then((data) => console.log(data))
 		} else {
-			console.log('empty')
+			alert('Empty')
 		}
 	}
 
@@ -36,11 +51,12 @@ const Create = () => {
 
 			<SContainer>
 				<form onSubmit={handlaSubmit}>
-					<label>Title</label>
-					<input type='text' value={title} onChange={handleTitle} />
+					<input type='text' placeholder='Title' value={title} onChange={handleTitle} />
 
-					<label>Content</label>
-					<textarea value={text} onChange={handleText} />
+					<textarea value={text} placeholder='Description...' onChange={handleText} />
+
+					<label>Image</label>
+					<input type='file' onChange={handleImg} />
 
 					<button type='submit'>Create</button>
 				</form>

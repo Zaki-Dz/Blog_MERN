@@ -1,15 +1,10 @@
 const { Schema, model } = require('mongoose')
 
 const blogSchema = new Schema({
-	title: {
-		type: String,
-	},
-	text: {
-		type: String,
-	},
-	date: {
-		type: String,
-	},
+	title: String,
+	text: String,
+	date: String,
+	img: String,
 })
 
 const BlogModel = model('blog', blogSchema)

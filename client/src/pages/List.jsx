@@ -28,10 +28,10 @@ const List = () => {
 			<SMain>
 				<div className='blogs'>
 					{blogs.length != 0 &&
-						blogs.map(({ _id, title, text }) => {
+						blogs.map(({ _id, title, text, img }) => {
 							return (
 								<div className='blog'>
-									<img src='https://picsum.photos/1000' />
+									<img src={'http://localhost:3000/' + img} />
 
 									<div className='content'>
 										<h3>{title}</h3>
@@ -66,13 +66,15 @@ const SMain = styled.main`
 			position: relative;
 			display: flex;
 			align-items: center;
+			width: 800px;
+			gap: 3rem;
+			overflow: hidden;
 
 			img {
 				position: absolute;
 				left: 0;
 				top: 0;
 				width: 200px;
-				height: 100%;
 				background-color: #002045;
 			}
 
@@ -82,6 +84,13 @@ const SMain = styled.main`
 				gap: 1rem;
 				margin-right: 1rem;
 				color: #002045;
+
+				p {
+					overflow: hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					max-width: 300px;
+				}
 			}
 
 			button {
@@ -89,6 +98,7 @@ const SMain = styled.main`
 				border: 1px solid #002045;
 				background-color: transparent;
 				cursor: pointer;
+				margin-left: auto;
 			}
 		}
 	}

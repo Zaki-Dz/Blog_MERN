@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Blog from '../components/Blog'
 import Header from '../components/Header'
+import LoadingBlog from '../components/LoadingBlog'
 
 const Home = () => {
 	const [blogs, setBlogs] = useState([])
@@ -18,8 +19,17 @@ const Home = () => {
 
 			<SMain>
 				<div className='top'>
-					{blogs.length != 0 &&
-						blogs.map(({ _id, date, title, text }) => <Blog id={_id} date={date} title={title} text={text} />)}
+					{blogs.length != 0 ? (
+						blogs.map(({ _id, date, title, text, img }) => (
+							<Blog id={_id} date={date} title={title} text={text} img={img} />
+						))
+					) : (
+						<>
+							<LoadingBlog />
+							<LoadingBlog />
+							<LoadingBlog />
+						</>
+					)}
 				</div>
 			</SMain>
 		</>

@@ -4,9 +4,15 @@ const _PORT = 3000
 
 const cors = require('cors')
 app.use(cors())
-app.use(express.json())
+app.use(express.json({ limit: '50mb' }))
+app.use('/uploads', express.static(__dirname + '/uploads'))
 
 const mongoose = require('mongoose')
+
+const multer = require('multer')
+const upload = multer({ dest: 'uploads/' })
+
+const fs = require('fs')
 
 require('dotenv').config({
 	path: './dev.env',
@@ -35,13 +41,19 @@ app.get('/blog/:id', async (req, res) => {
 	res.json(blog)
 })
 
-app.post('/create', async (req, res) => {
-	console.log(req.body)
+app.post('/create', upload.single('img'), async (req, res) => {
+	const { path, originalname } = req.file
+	const parts = originalname.split('.')
+	const ext = parts[parts.length - 1]
 
-	const blog = new blogModel(req.body)
+	const newPath = path + '.' + ext
 
+	fs.renameSync(path, newPath)
+
+	const data = { ...req.body, img: newPath }
+
+	const blog = new blogModel(data)
 	await blog.save()
-
 	res.json(blog)
 })
 

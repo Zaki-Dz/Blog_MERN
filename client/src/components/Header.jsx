@@ -12,7 +12,7 @@ const Header = () => {
 	return (
 		<SHeader>
 			<h1 className='logo' onClick={() => handleLink('/')}>
-				Logo
+				Blog
 			</h1>
 
 			<div className='search'>

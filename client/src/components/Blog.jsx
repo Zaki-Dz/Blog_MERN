@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
-const Blog = ({ id, date, title, text }) => {
+const Blog = ({ id, date, title, text, img }) => {
 	const navigate = useNavigate()
 
 	const handleLink = () => {
@@ -10,7 +10,7 @@ const Blog = ({ id, date, title, text }) => {
 
 	return (
 		<SBlog>
-			<img src='https://picsum.photos/1000' />
+			<img src={'http://localhost:3000/' + img} />
 
 			<div className='content'>
 				<span className='date'>{date}</span>
